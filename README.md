@@ -15,7 +15,7 @@ You can do so by opening a ticket [here](https://discord.com/channels/7348554362
 
 ## Documentation
 
-1. [User Log In](docs/login-user.md)
+1. [User Login](docs/login-user.md)
 2. [Open a DAF](docs/open-daf.md)
 3. [Donate to a DAF](docs/donate-to-daf.md)
 4. [Search for an Organization](docs/search-for-org.md)
