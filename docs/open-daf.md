@@ -161,7 +161,7 @@ async function createDaf(req) {
         // Make sure to replace this with the actual details from the request
         name: newFundName,
         description: newFundDescription,
-        fundAdvisor: newFundAdvisor,
+        advisor: newFundAdvisor,
 
         // The full list of fields can be found in the API Reference
         ...
