@@ -36,7 +36,7 @@ export const OrgSearch = () => {
           data?.pages.map((page) =>
             page.map((org) => (
               <div key={org.ein ?? org.id} className="org-listing">
-                <img src={org.logo} alt={org.logo ? org.name : ''} />
+                {org.logo && (<img src={org.logo} alt={org.logo ? org.name : ''} />)}
                 <a href={`${getEndaomentUrls().app}/orgs/${org.ein ?? org.id}`}>
                   {org.name}
                 </a>
