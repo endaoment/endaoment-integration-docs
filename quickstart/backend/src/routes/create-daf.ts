@@ -28,7 +28,7 @@ export const createDaf = async (req: Request, res: Response) => {
         fundInput: {
           name: newFundName,
           description: newFundDescription,
-          fundAdvisor: newFundAdvisor,
+          advisor: newFundAdvisor,
         },
       }),
     }
