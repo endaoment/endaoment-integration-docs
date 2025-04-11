@@ -290,6 +290,6 @@ You have successfully logged in a user and can now make authenticated requests t
 ## Next Steps
 
 With the user logged in, your app is now open to performing a host of new actions on their account.
-You should now consider implementing the [opening a new DAF flow](./open-daf.md).
+You should now consider implementing the [creating a new DAF flow](./create-daf.md).
 
 > If you would like to skip ahead, you can use the tool provided [here](https://app.dev.endaoment.org/dev/token) to generate a development JWT token. Remember that this functionality is only available in development and should be replaced with your own OAuth server in production.

@@ -11,6 +11,8 @@ const searchOnEndaoment = async (
 ): Promise<OrgListing[]> => {
   if (searchTerm === '') return [];
 
+  // For more details about the data contract of the API, see the API reference:
+  // https://api.dev.endaoment.org/oas#/Organizations/OrgsController_searchOrgs
   const offset = page * PAGE_COUNT;
   const response = await fetch(
     `${

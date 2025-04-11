@@ -3,9 +3,9 @@ import { getAccessToken } from '../utils/access-token';
 import { getEndaomentUrls } from '../utils/endaoment-urls';
 
 export const createDaf = async (req: Request, res: Response) => {
-  const newFundName = req.body['name'];
-  const newFundDescription = req.body['description'];
-  const newFundAdvisor = req.body['fundAdvisor'];
+  const newFundName = req.body['name'] as string;
+  const newFundDescription = req.body['description'] as string;
+  const newFundAdvisor = req.body['fundAdvisor'] as string;
 
   if (!newFundName || !newFundDescription || !newFundAdvisor) {
     res.status(400);
@@ -15,6 +15,8 @@ export const createDaf = async (req: Request, res: Response) => {
 
   const token = getAccessToken(req);
 
+  // For more details about the data contract of the API, see the API reference:
+  // https://api.dev.endaoment.org/oas#/Funds/FundsController_processFund
   const fundCreationResponse = await fetch(
     `${getEndaomentUrls().api}/v1/funds`,
     {

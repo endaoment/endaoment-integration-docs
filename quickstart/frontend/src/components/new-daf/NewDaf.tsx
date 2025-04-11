@@ -150,11 +150,13 @@ export const NewDaf = () => {
       </div>
 
       <div>
-        <label htmlFor="fundAdvisor.address.country">Advisor Country</label>
+        {/*  Ideally, this should be a Dropdown Selector in your app. We kept it as a form for simplicity */}
+        <label htmlFor="fundAdvisor.address.country">Advisor Country (Must be an ISO 3166-1 alpha-3 Country Code)</label>
         <input
           type="text"
           id="fundAdvisor.address.country"
           name="fundAdvisor.address.country"
+          placeholder="USA"
           required
         />
       </div>

@@ -13,10 +13,12 @@ Make sure to reach out to the Endaoment team to get your OAuth Credentials, whic
 
 You can do so by opening a ticket [here](https://discord.com/channels/734855436276334746/890622199390699580).
 
+As you read through this introduction to our system, it will be helpful to have the [API Reference Docs](https://api.dev.endaoment.org/oas) open in a separate tab. The API Reference provides detailed information about endpoints, request/response formats, authentication requirements, and data models. You can use it to understand the complete API capabilities and to verify specific implementation details as you build your integration.
+
 ## Documentation
 
 1. [Login User](docs/login-user.md)
-2. [Open a DAF](docs/open-daf.md)
+2. [Create a DAF](docs/create-daf.md)
 3. [Donate to a DAF](docs/donate-to-daf.md)
 4. [Search for an Organization](docs/search-for-org.md)
 5. [Grant from a DAF](docs/grant-from-daf.md)

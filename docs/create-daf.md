@@ -9,6 +9,18 @@ Following this guide will result in the following:
   - For the purposes of this guide it will be called `/create-daf`
 - A UI that will allow a user to view the details of their newly created DAF
 
+## What is a Donor-Advised Fund?
+
+A Donor-Advised Fund (DAF) is a charitable giving vehicle that allows donors to make tax-deductible contributions to a dedicated fund they control. Think of it as a "Giving Account" that you can contribute to at any time and then use to support the causes you care about.
+
+With a DAF:
+- You make contributions to your fund when it's convenient for you
+- Your contributions may be eligible for immediate tax benefits
+- Your funds can be invested and potentially grow tax-free
+- You can recommend grants to eligible nonprofit organizations whenever you're ready
+
+DAFs simplify the giving process while providing flexibility in how and when you support charitable organizations.
+
 ## Prerequisites
 
 Before you begin, ensure you have completed the [User Login Guide](./login-user.md) as users must be authenticated to create a DAF.
@@ -33,6 +45,8 @@ sequenceDiagram
 ### 1. Prepare the DAF creation form
 
 Once a user has logged in, they should gain the ability to create new DAFs for their account. In order to facilitate this, you will need to create a form that allows them to enter in the details of the new DAF. The example below is the simplest form that can be used to create a DAF but you should customize it to fit your application's needs.
+
+Your UI should collect all required information for creating a DAF through the [Create a DAF API](https://api.dev.endaoment.org/oas#/Funds/FundsController_processFund)
 
 ```html
 <form id="create-daf-form" action="[your-backend]/create-daf" method="POST">
@@ -97,12 +111,14 @@ Once a user has logged in, they should gain the ability to create new DAFs for t
     name="fundAdvisor.address.zip"
     required />
 
-  <label for="fundAdvisor.address.country">Advisor Country</label>
-  <input
-    type="text"
-    id="fundAdvisor.address.country"
-    name="fundAdvisor.address.country"
-    required />
+    <label for="fundAdvisor.address.country">Advisor Country (Must be an ISO 3166-1 alpha-3 Country Code)</label>
+    <input
+            type="text"
+            id="fundAdvisor.address.country"
+            name="fundAdvisor.address.country"
+            placeholder="USA"
+            required
+    />
 
   <button type="submit">Create DAF</button>
 </form>
@@ -147,8 +163,9 @@ async function createDaf(req) {
   // This is entirely dependent on your application's setup and the manner in which you store tokens
   const token = req.cookies['ndao_token'];
 
-  // Send a request to your backend service to create a DAF
-  const fundCreationResponse = await fetch('https://api.endaoment.org/v1/funds', {
+ // For more details about the data contract of the API, see the API reference:
+  // https://api.dev.endaoment.org/oas#/Funds/FundsController_processFund
+  const fundCreationResponse = await fetch('https://api.dev.endaoment.org/v1/funds', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -164,7 +181,7 @@ async function createDaf(req) {
         advisor: newFundAdvisor,
 
         // The full list of fields can be found in the API Reference
-        ...
+        // ...
       }
     }),
   });

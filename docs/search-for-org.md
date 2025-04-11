@@ -64,7 +64,7 @@ When the user finishes typing their search term and clicks the search button, yo
 ```javascript
 // This should be part of the Search component in the previous step
 const handleSearch = async () => {
-  const searchUrl = `https://api.endaoment.com//v2/orgs/search?searchTerm=${searchTerm}`;
+  const searchUrl = `https://api.dev.endaoment.org/v2/orgs/search?searchTerm=${searchTerm}`;
 
   try {
     const response = await fetch(searchUrl);

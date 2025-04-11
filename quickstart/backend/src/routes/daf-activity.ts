@@ -15,6 +15,8 @@ export async function getDafActivity(req: Request, res: Response) {
   const token = getAccessToken(req);
 
   try {
+    // For more details about the data contract of the API, see the API reference:
+    // https://api.dev.endaoment.org/oas#/Activity/ActivityController_getRecentFundActivity
     const dafActivityResponse = await fetch(
       `${getEndaomentUrls().api}/v1/activity/fund/${fundId}`,
       {

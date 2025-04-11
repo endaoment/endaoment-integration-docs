@@ -6,12 +6,25 @@ We will be creating a simple donation flow that will allow users to donate to a 
 
 Since there are a variety of donation types (cash, stock, crypto), we will cover each type in a separate section. Please refer to the appropriate section based on the donation type you would like to implement.
 
+## What is a Donation?
+A donation on the Endaoment platform occurs when a user contributes assets (like cash, stocks, or cryptocurrency) to any of the following:
+
+- A Donor-Advised Fund (DAF) - A charitable giving account that the donor can use to support multiple organizations over time
+- An Organization - A direct contribution to a specific 501(c)(3) nonprofit organization
+- A Subproject - A dedicated fundraising initiative within an organization or DAF
+
+When a user makes a donation:
+- They are elligible to receive an immediate tax deduction for their charitable contribution
+- The assets are converted to USDC (a stablecoin pegged to USD) if not already in that form
+- The funds become available for granting to eligible nonprofits (in the case of DAF donations) or are directed to the specified organization
+
+
 ## Prerequisites
 
 Before you begin, ensure your application is capable of the following flows:
 
 - [Logging in a user](./login-user.md) as users must be authenticated to grant out of a DAF
-- [Opening a DAF](./open-daf.md) as you will need to select a DAF to grant out of
+- [Creating a DAF](./create-daf.md) as you will need to select a DAF to grant out of
 
 ## Flow Overview
 
@@ -92,6 +105,18 @@ sequenceDiagram
 ```
 -->
 
+## Important Wire Donation Considerations
+
+Before implementing wire donations, developers should understand these key aspects:
+
+1. **Wire donations are asynchronous**: Unlike some payment methods, wire donations are not completed instantly when the pledge is created. The donation is only completed after the user actually sends the wire transfer and Endaoment receives and processes the funds.
+
+2. **Manual wire transfer required**: The wire is not sent automatically. Users must manually initiate the wire transfer using the banking details obtained from the `v1/donation-pledges/wire/details/domestic` API. Your application must clearly display these wire instructions and set proper expectations for users.
+
+3. **Communication expectations**: While Endaoment will send an email to users with wire instructions, your application should also prominently display these details to reinforce the expectations and ensure users understand the next steps.
+
+4. **Development environment testing**: When working in development environments, you'll need to contact the Endaoment team to simulate wire pledge closures on their side. This ensures you can fully test your donation flow without having to make actual wire transfers. Note that we are working on an API to allow developers to programmatically handle wire pledge closures, which will make testing easier in the future. Make sure to check in with us if that API is complete to make your integration experience smoother.
+
 ## Step-by-Step Instructions (Wire Cash Donation)
 
 ### 1. Set up fund selection
@@ -106,7 +131,7 @@ async function getDafs(req, res) {
   const token = getAccessToken(req);
 
   // Make a request to the Endaoment API to get the list of DAFs
-  const usersDafList = await fetch('https://api.endaoment.com/v1/funds/mine', {
+  const usersDafList = await fetch('https://api.dev.endaoment.org/v1/funds/mine', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -124,7 +149,7 @@ async function getDafs(req, res) {
 
 You can now call this route from your frontend to retrieve the list of DAFs available to the user. This example uses React, but you can use any frontend framework or vanilla JavaScript.
 
-For more details about the `https://api.endaoment.com/v1/funds/mine` API being called, check the [API docs](https://api.dev.endaoment.org/oas#/Funds/FundsController_getMyFunds)
+For more details about the `https://api.dev.endaoment.org/v1/funds/mine` API being called, check the [API docs](https://api.dev.endaoment.org/oas#/Funds/FundsController_getMyFunds)
 
 ```javascript
 const DafList = () => {
@@ -168,9 +193,9 @@ async function getWireInstructions(req, res) {
   // Make a request to the Endaoment API to get the wire instructions
   const wireInstructions = await fetch(
     // For domestic wire instructions
-    'https://api.endaoment.com/v1/donation-pledges/wire/details/domestic',
+    'https://api.dev.endaoment.org/v1/donation-pledges/wire/details/domestic',
     // For international wire instructions
-    // 'https://api.endaoment.com/v1/donation-pledges/wire/details/international',
+    // 'https://api.dev.endaoment.org/v1/donation-pledges/wire/details/international',
     {
       method: 'GET',
       headers: {
@@ -251,7 +276,7 @@ async function wireDonation(req, res) {
 
   // Make a request to the Endaoment API to create the donation request
   const donationRequest = await fetch(
-    'https://api.endaoment.com/v1/donation-pledges/wire',
+    'https://api.dev.endaoment.org/v1/donation-pledges/wire',
     {
       method: 'POST',
       headers: {
@@ -312,39 +337,6 @@ Once the donation request has been successfully processed, the user should be sh
 </div>
 ```
 
-<!--
-## Step-by-Step Instructions (Custodial Cash Donation)
-
-### 1. Set up the donation form
-
-> TODO
-
-### 2. Orchestrate the donation request
-
-> TODO
-
-## Step-by-Step Instructions (Stock Donation)
-
-### 1. Set up the donation form
-
-> TODO
-
-### 2. Orchestrate the donation request
-
-> TODO
-
-## Step-by-Step Instructions (Crypto Donation)
-
-### 1. Set up the donation form
-
-> TODO
-
-### 2. Orchestrate the donation request
-
-> TODO
-
- -->
-
 ## Conclusion
 
-Congratulations! You have successfully implemented a donation flow to a Donor-Advised Fund (DAF) on the Endaoment platform. After completing this flow, users will be have funds available in their DAF! In order for these dollars to go towards the causes they care about, users can now begin the process of [granting to organizations](./grant-from-daf.md)!
+Congratulations! You have successfully implemented a donation flow to a Donor-Advised Fund (DAF) on the Endaoment platform. After completing this flow, users will have funds available in their DAF! In order for these dollars to go towards the causes they care about, users can first [search for organizations](./search-for-org.md) they want to support, and then begin the process of [issuing grants from their Funds to those organizations](./grant-from-daf.md)!

@@ -4,12 +4,22 @@ Welcome to the Granting out of a Donor-Advised Fund (DAF) Guide. This document w
 
 We will be creating a simple granting flow that will allow users to grant out of a Donor-Advised Fund (DAF) on the Endaoment platform. This guide will cover adding a grant form to your frontend, preparing a grant URL, and processing the grant.
 
+## What is a Grant?
+A grant on the Endaoment platform occurs when a user distributes funds from their Donor-Advised Fund (DAF) to an eligible nonprofit organization. When a user makes a grant:
+
+- The funds are transferred from their DAF balance to the selected organization
+- The grant is not tax deductible, since the tax benefit was already received when the initial donation was made to fund the DAF
+- The organization receives the granted amount in USDC (a stablecoin pegged to USD)
+- The grant must be approved by Endaoment to ensure it complies with charitable giving regulations
+
+Grants provide a key advantage over one-time donations: donors can take a **large tax deduction upfront when funding their DAF, but then thoughtfully distribute those charitable dollars over time to multiple organizations.** This allows donors to make strategic giving decisions without the pressure of year-end tax deadlines, since the tax benefit has already been secured. For example, a donor could contribute $100,000 to their DAF in a high-income year to maximize tax benefits, then grant those funds to various nonprofits over several years as they identify impactful opportunities.
+
 ## Prerequisites
 
 Before you begin, ensure your application is capable of the following flows:
 
 - [Logging in a user](./login-user.md) as users must be authenticated to grant out of a DAF
-- [Opening a DAF](./open-daf.md) as you will need to select a DAF to grant out of
+- [Creating a DAF](./create-daf.md) as you will need to select a DAF to grant out of
 - [Searching for organizations](./search-for-org.md) as you will need to select an organization to grant to
 - [Donating to a DAF](./donate-to-daf.md) as you will need to have funds available in the DAF to grant out
 
@@ -180,7 +190,7 @@ async function grant(req, res) {
 
   // Make a request to the Endaoment API to create the donation request
   const grantRequest = await fetch(
-    'https://api.endaoment.com/v1/transfers/async-grants',
+    'https://api.dev.endaoment.org/v1/transfers/async-grants',
     {
       method: 'POST',
       headers: {
