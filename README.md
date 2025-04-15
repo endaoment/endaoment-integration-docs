@@ -19,6 +19,7 @@ As you read through this introduction to our system, it will be helpful to have 
 
 1. [Login User](docs/login-user.md)
 2. [Create a DAF](docs/create-daf.md)
+   - Optional: [Add a Collaborator](docs/add-collaborator.md)
 3. [Donate to a DAF](docs/donate-to-daf.md)
 4. [Search for an Organization](docs/search-for-org.md)
 5. [Grant from a DAF](docs/grant-from-daf.md)

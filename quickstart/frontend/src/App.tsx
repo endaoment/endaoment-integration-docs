@@ -14,7 +14,7 @@ const checkSignedInQueryOptions = queryOptions({
   queryFn: async (): Promise<boolean> => {
     const response = await fetch(
       `${getEnvOrThrow('SAFE_BACKEND_URL')}/check-login`,
-      { credentials: 'include' }
+      { credentials: 'include' },
     );
     const data = await response.json();
     return data.isSignedIn;
@@ -24,13 +24,14 @@ const checkSignedInQueryOptions = queryOptions({
 function App() {
   // Pull login status from the server
   const { data: isSignedIn, refetch: refetchSignInStatus } = useQuery(
-    checkSignedInQueryOptions
+    checkSignedInQueryOptions,
   );
   const { mutate: signIn } = useMutation({
     mutationKey: ['Sign In'],
     mutationFn: async () => {
+      console.log('Signing in');
       const response = await fetch(
-        `${getEnvOrThrow('SAFE_BACKEND_URL')}/init-login`
+        `${getEnvOrThrow('SAFE_BACKEND_URL')}/init-login`,
       );
       const { url } = await response.json();
       window.location.href = url;
@@ -79,7 +80,8 @@ function App() {
                 setCurrentView('none');
                 signOut();
               }}
-              data-color="red">
+              data-color="red"
+            >
               Sign Out
             </button>
           </>
@@ -90,7 +92,8 @@ function App() {
               setCurrentView('none');
               signIn();
             }}
-            data-color="green">
+            data-color="green"
+          >
             Sign In
           </button>
         )}

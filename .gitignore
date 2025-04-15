@@ -4,3 +4,5 @@ node_modules
 
 quickstart/backend/login-states/**/*
 !quickstart/backend/login-states/.gitkeep
+
+DRAFT.jsonc

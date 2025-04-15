@@ -21,6 +21,22 @@ With a DAF:
 
 DAFs simplify the giving process while providing flexibility in how and when you support charitable organizations.
 
+### Who is the DAF Manager?
+
+The DAF Manager is the technical entity that has programmatic capabilities to interact with fund and perform operations on it. The manager has a wallet address and can execute programmatic functionalities such as:
+- Processing contributions
+- Executing grants
+- Managing fund operations
+
+The manager can be the same person/entity as the advisor or act on behalf of the advisor.
+
+### Who is the DAF Primary Advisor?
+
+The DAF Primary Advisor is the real-world person or entity who serves as the public contact for the fund. Unlike the manager, the advisor doesn't have technical capabilities but rather represents the human or organizational side of the fund. The advisor:
+- Is listed as the official contact for the fund
+- May be contacted by organizations or other parties regarding the fund
+- Can be the same person/entity as the manager or be represented by the manager
+
 ## Prerequisites
 
 Before you begin, ensure you have completed the [User Login Guide](./login-user.md) as users must be authenticated to create a DAF.
@@ -126,6 +142,8 @@ Your UI should collect all required information for creating a DAF through the [
 
 Note how the form is set up to send a POST request to your backend service at `/create-daf`. This is where the DAF details will be sent to be verified and then sent to the Endaoment API.
 
+When submitting this form, the logged-in user **will be assigned as the Manager of the fund.**
+
 ### 2. Orchestrate the DAF creation request
 
 When the user submits the form, the details will be sent to your backend service. We will of course need to create an endpoint that can receive this information and then send it to the Endaoment API to create the DAF. For the purposes of this guide, we will assume that the endpoint is `/create-daf`.
@@ -217,6 +235,9 @@ If you choose to do so, you can display the details of the newly created DAF to 
 ```
 
 The full reference of the fields that are returned in the response can be found in the [API Reference](https://api.dev.endaoment.org/oas#/Funds/FundsController_processFund).
+
+### 4. (Optional) Add Collaborators
+For more details about Collaborators and on how to add and manage them, see the [Manage Collaborator](./manage-collaborators.md) documentation.
 
 ## Conclusion
 
