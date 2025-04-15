@@ -1,4 +1,4 @@
-# Adding Collaborators to DAFs
+# Manage Collaborators
 
 Collaborators are additional users who can interact with your DAF in a limited capacity:
 
@@ -15,13 +15,15 @@ Collaborators are additional users who can interact with your DAF in a limited c
   - Modify fund settings or structure
   - Add or remove other Collaborators
 
+# Add a Collaborator
+
 ## Platform Requirements
 
 To enable Collaborator Management on your platform, you must review and agree to Endaoment's Terms and Conditions for Collaborator Management and Pass our security and compliance review.
 
 For assistance with enabling this feature or to request access, please contact our Platform Integration team at admin@endaoment.org.
 
-We'll guide you through the necessary steps and documentation requirements. If approved, you will receive and API Key that will allow you to call the `Manage Collaborator` APIs.
+We'll guide you through the necessary steps and documentation requirements. If approved, you will receive and API Key that will allow you to call the Collaborator Management APIs.
 
 ## User Prerequisites
 
@@ -176,6 +178,12 @@ const addCollaboratorResponse = await fetch(
 
 For complete API documentation and data contract details, visit the [Add Collaborator API endpoint](https://api.dev.endaoment.org/oas#/Funds/FundsController_addFundCollaboratorTrust).
 
-## Collaborator Actions
+---
+
+# Collaborator Actions
+
+This part of the documentation is still under construction. Let us know if you have interest in this section before we build it out for you!
+
+# Delete Collaborators
 
 This part of the documentation is still under construction. Let us know if you have interest in this section before we build it out for you!

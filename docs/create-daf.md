@@ -14,6 +14,7 @@ Following this guide will result in the following:
 A Donor-Advised Fund (DAF) is a charitable giving vehicle that allows donors to make tax-deductible contributions to a dedicated fund they control. Think of it as a "Giving Account" that you can contribute to at any time and then use to support the causes you care about.
 
 With a DAF:
+
 - You make contributions to your fund when it's convenient for you
 - Your contributions may be eligible for immediate tax benefits
 - Your funds can be invested and potentially grow tax-free
@@ -24,6 +25,7 @@ DAFs simplify the giving process while providing flexibility in how and when you
 ### Who is the DAF Manager?
 
 The DAF Manager is the technical entity that has programmatic capabilities to interact with fund and perform operations on it. The manager has a wallet address and can execute programmatic functionalities such as:
+
 - Processing contributions
 - Executing grants
 - Managing fund operations
@@ -33,6 +35,7 @@ The manager can be the same person/entity as the advisor or act on behalf of the
 ### Who is the DAF Primary Advisor?
 
 The DAF Primary Advisor is the real-world person or entity who serves as the public contact for the fund. Unlike the manager, the advisor doesn't have technical capabilities but rather represents the human or organizational side of the fund. The advisor:
+
 - Is listed as the official contact for the fund
 - May be contacted by organizations or other parties regarding the fund
 - Can be the same person/entity as the manager or be represented by the manager
@@ -77,64 +80,74 @@ Your UI should collect all required information for creating a DAF through the [
     type="text"
     id="fundAdvisor.firstName"
     name="fundAdvisor.firstName"
-    required />
+    required
+  />
 
   <label for="fundAdvisor.lastName">Advisor Last Name</label>
   <input
     type="text"
     id="fundAdvisor.lastName"
     name="fundAdvisor.lastName"
-    required />
+    required
+  />
 
   <label for="fundAdvisor.email">Advisor Email</label>
   <input
     type="email"
     id="fundAdvisor.email"
     name="fundAdvisor.email"
-    required />
+    required
+  />
 
   <label for="fundAdvisor.address.line1">Advisor Address Line 1</label>
   <input
     type="text"
     id="fundAdvisor.address.line1"
     name="fundAdvisor.address.line1"
-    required />
+    required
+  />
 
   <label for="fundAdvisor.address.line2">Advisor Address Line 2</label>
   <input
     type="text"
     id="fundAdvisor.address.line2"
-    name="fundAdvisor.address.line2" />
+    name="fundAdvisor.address.line2"
+  />
 
   <label for="fundAdvisor.address.city">Advisor City</label>
   <input
     type="text"
     id="fundAdvisor.address.city"
     name="fundAdvisor.address.city"
-    required />
+    required
+  />
 
   <label for="fundAdvisor.address.state">Advisor State</label>
   <input
     type="text"
     id="fundAdvisor.address.state"
     name="fundAdvisor.address.state"
-    required />
+    required
+  />
 
   <label for="fundAdvisor.address.zip">Advisor Zip</label>
   <input
     type="text"
     id="fundAdvisor.address.zip"
     name="fundAdvisor.address.zip"
-    required />
+    required
+  />
 
-    <label for="fundAdvisor.address.country">Advisor Country (Must be an ISO 3166-1 alpha-3 Country Code)</label>
-    <input
-            type="text"
-            id="fundAdvisor.address.country"
-            name="fundAdvisor.address.country"
-            placeholder="USA"
-            required
-    />
+  <label for="fundAdvisor.address.country"
+    >Advisor Country (Must be an ISO 3166-1 alpha-3 Country Code)</label
+  >
+  <input
+    type="text"
+    id="fundAdvisor.address.country"
+    name="fundAdvisor.address.country"
+    placeholder="USA"
+    required
+  />
 
   <button type="submit">Create DAF</button>
 </form>
@@ -237,7 +250,8 @@ If you choose to do so, you can display the details of the newly created DAF to 
 The full reference of the fields that are returned in the response can be found in the [API Reference](https://api.dev.endaoment.org/oas#/Funds/FundsController_processFund).
 
 ### 4. (Optional) Add Collaborators
-For more details about Collaborators and on how to add and manage them, see the [Manage Collaborator](./manage-collaborators.md) documentation.
+
+For more details about Collaborators and on how to add and manage them, see the [Manage Collaborators](./manage-collaborators.md) documentation.
 
 ## Conclusion
 
