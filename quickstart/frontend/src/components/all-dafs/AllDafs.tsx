@@ -8,13 +8,14 @@ import { GRANT_BOX_ID, GrantBox } from './GrantBox';
 import { getEndaomentUrls } from '../../utils/endaoment-urls';
 import { formatUsdc } from '../../utils/formatUsdc';
 import { DafActivityList } from './DafActivityList';
+import { CollaboratorList } from './CollaboratorList';
 
 const allDafsQueryOptions = queryOptions({
   queryKey: ['All DAFs'],
   queryFn: async (): Promise<Daf[]> => {
     const response = await fetch(
       `${getEnvOrThrow('SAFE_BACKEND_URL')}/get-dafs`,
-      { credentials: 'include' }
+      { credentials: 'include' },
     );
     const list = await response.json();
 
@@ -38,7 +39,7 @@ export const AllDafs = () => {
       if (!foundDaf) return undefined;
       return foundDaf;
     },
-    undefined
+    undefined,
   );
   const [isShowingDonateBox, setIsShowingDonateBox] = useState(false);
   const [isShowingGrantBox, setIsShowingGrantBox] = useState(false);
@@ -89,11 +90,13 @@ export const AllDafs = () => {
                 <button
                   onClick={() => handleGrant(daf.id)}
                   type="button"
-                  disabled={BigInt(daf.usdcBalance) === 0n}>
+                  disabled={BigInt(daf.usdcBalance) === 0n}
+                >
                   Grant
                 </button>
               </div>
               <DafActivityList dafId={daf.id} />
+              <CollaboratorList dafId={daf.id} />
             </li>
           ))}
         </ul>

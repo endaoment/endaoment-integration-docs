@@ -12,7 +12,8 @@ import { createDaf } from './routes/create-daf'
 import bodyParser from 'body-parser'
 import { grant } from './routes/grant'
 import { getDafActivity } from './routes/daf-activity'
-
+import { removeCollaborator } from './routes/remove-collaborator'
+import { getCollaborators } from './routes/get-collaborators'
 // Create a new express application instance
 const app = express()
 
@@ -46,6 +47,10 @@ app.get('/get-daf-activity', getDafActivity)
 // Donation routes
 app.get('/wire-donation', getWireInstructions)
 app.post('/wire-donation', wireDonation)
+
+// Collaborator routes
+app.get('/get-fund-collaborators', getCollaborators)
+app.delete('/remove-collaborator/:fundId/:userId', removeCollaborator)
 
 // Start the Express server
 app.listen(port, () => {
