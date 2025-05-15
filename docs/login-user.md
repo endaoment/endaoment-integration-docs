@@ -1,3 +1,7 @@
+---
+title: 'Login User'
+---
+
 # User Login Guide
 
 Welcome to the User Login Guide. This document will walk you through the process of logging in a user to your application.
@@ -33,7 +37,7 @@ sequenceDiagram
     S->>C: Create verification request for user
     C->>O: Redirected to authentication page
     O->>O: User logs in
-    O->>C: User is redirected to `returnUrl` with code
+    O->>C: User is redirected to returnUrl with code
     C->>S: Callback page calls verify endpoint
     S->>O: Verify code and exchange for token
     O-->>S: Return authentication token
@@ -77,6 +81,8 @@ window.location.href = res.url;
 
 Once your frontend has initiated the login process, your backend service must create a verification request for the user. This will require generating a `codeVerifier`, `codeChallenge`, and `state`.
 
+The following code snippet, taken from the [backend/utils/init-login.ts file](https://github.com/endaoment/endaoment-integration-docs/blob/main/quickstart/backend/src/utils/init-login.ts) in the [quickstart example](https://github.com/endaoment/endaoment-integration-docs/tree/main/quickstart/), demonstrates how to generate the `codeVerifier`, `codeChallenge`, and `state`:
+
 ```js
 const crypto = require('crypto');
 const fs = require('fs');
@@ -111,8 +117,8 @@ function saveOAuthState({ codeVerifier, codeChallenge, state }) {
         state,
       },
       null,
-      2
-    )
+      2,
+    ),
   );
 }
 
@@ -159,11 +165,17 @@ async function initLogin(req, res) {
   // We must prepare the proper OpenID Connect parameters
   const urlParams = new URLSearchParams();
   urlParams.append('response_type', 'code');
-  urlParams.append('prompt', 'consent');
-  urlParams.append(
-    'scope',
-    'openid offline_access accounts transactions profile'
-  );
+  urlParams.append('prompt', 'login');
+  urlParams.append('scope', 'openid accounts transactions profile');
+
+  // Add "consent" prompt and "offline_access" scope if you wish to issue a refresh token to keep a long-term connection
+  // to the user's Endaoment Account.
+  // urlParams.append('prompt', 'login consent');
+  // urlParams.append(
+  //   'scope',
+  //   'openid offline_access accounts transactions profile',
+  // );
+
   urlParams.append('client_id', process.env.ENDAOMENT_CLIENT_ID);
   urlParams.append('redirect_uri', redirectUri);
   urlParams.append('code_challenge', codeChallenge);
@@ -184,15 +196,20 @@ The URL that you have generated will be sent to the frontend whenever the user i
 
 ### 4. Verify the Login and Exchange for an Access Token
 
-#### Development Redirect URL 
+#### Development Redirect URL
+
 Since the Endaoment Authorization Server requires a fixed set of redirect URIs to be defined for a given client, make sure to host the application handling the redirect on one of the following URLs:
+
 - `http://localhost:5454`
 - `http://localhost:5454/dev/token`
 
 When moving the integration from your local environment to cloud environments, make sure to reach out to us with the URLs you will be using to properly configure the integration.
 
 #### Handling the redirect
+
 Once the user has logged in and been redirected back to your `redirectUri`, you must verify the login. This will require verifying the `state` and `code` and exchanging the `code` for an authentication token.
+
+The following code snippet, taken from the [backend/routes/verify-login.ts file](https://github.com/endaoment/endaoment-integration-docs/blob/main/quickstart/backend/src/routes/verify-login.ts) in the [quickstart example](https://github.com/endaoment/endaoment-integration-docs/tree/main/quickstart/), demonstrates how to verify the login and exchange the `code` for an authentication token:
 
 ```js
 const fs = require('fs');
@@ -206,8 +223,8 @@ function getOAuthState(stateFromUrl) {
     // You should handle this case by returning an error
     fs.readFileSync(
       path.join(__dirname, `${stateFromUrl}-exportedVariables.json`),
-      'utf8'
-    )
+      'utf8',
+    ),
   );
 }
 
@@ -243,7 +260,7 @@ async function verifyLogin(req) {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
       Authorization: `Basic ${Buffer.from(
-        `${process.env.ENDAOMENT_CLIENT_ID}:${process.env.ENDAOMENT_CLIENT_SECRET}`
+        `${process.env.ENDAOMENT_CLIENT_ID}:${process.env.ENDAOMENT_CLIENT_SECRET}`,
       ).toString('base64')}`,
     },
     body: formData,
@@ -263,7 +280,8 @@ The response from the Endaoment OAuth token endpoint will look like this:
   "token_type": "Bearer",
   "expires_in": 3600,
   "id_token": "Nbj6pYAJCTkaSpwQN9TOUhNqXL5fWDi0FdogLwSbeL1aoMQD62FYS8AIPUJriTzo8YSI3UIwlcsEDSNqztnnuFwPOf3b0GtVNXHMVjCDdxD75pJF2VfpUDMgu21lKCQc4Qyr0rbmxDk1DukOkbkqNHHWHeXlDpSQh4I1Vl8cLWay0MO5hyrMTIcxEmmFbhl65eGE5Rrv1cTvSmRJva6sHZOi2D2abde6xBbhvHAc7mvVLZTuqCXEVGR56VVOg6FGRgwrGF4xmw0YTWkypQ4TUPi4AvTScJxi3OhviY2Idt9HThFbHqWU3DysP984CO3bfw4KO3jRc6CCyY0Oye9rQvuqPHqxwvrpFvBsBM52wP0kMU1HZr8zZU98AqvlfRu8Sxrc4mcj5VYMLxesxB525XfedUJbHhRhAy1LoyEbWveoCTibGFziHMvOwFcvXqoSQXPWqlKHHKeUSqPUrJcaufbMmDXBP5ZeS3IPDFlBZCfcAl6983mcO5slfj54kJ9j6a7W4JcOQeGGV4ik9cwvI5KmOQuAIdJby0Uh9LMSOeBRThQGIPBYo3uwB212sRtodQAA0LM3YYybuf3R3bQ4hZNN19iq9K4TPHlukV3Ji9WCOH3yn91m0MHhvepxqswwntV5vcatFCB8dx68HuqvEwZzBg5OClzeXnQOpYibWNmi2pd0xZE8LBEdpNwjV41ys8YEM2NEpNUIt4HAlt72RqRdIkDhtuK1lTN8CSkYIxzTuKE6SoqBfky7YRRWKxuhD7",
-  "refresh_token": "eGGV4ik9cwvI5KmOQuAIdJby0Uh9LMSOeBRThQGIPBY",
+  // Only issued if scope "offline_access" is requested and prompt includes "consent"
+  // "refresh_token": "eGGV4ik9cwvI5KmOQuAIdJby0Uh9LMSOeBRThQGIPBY",
   "scope": "accounts transactions profile"
 }
 ```

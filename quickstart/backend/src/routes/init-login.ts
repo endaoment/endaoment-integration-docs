@@ -48,8 +48,19 @@ export const initLogin = async (req: Request, res: Response) => {
 
   const urlParams = new URLSearchParams()
   urlParams.append('response_type', 'code')
-  urlParams.append('prompt', 'consent')
-  urlParams.append('scope', 'openid offline_access accounts transactions profile')
+
+  // Short-lived access via Access Token
+  urlParams.append('prompt', 'login')
+  urlParams.append('scope', 'openid accounts transactions profile')
+
+  // Add "consent" prompt and "offline_access" scope if you wish to issue a refresh token to keep a long-term connection
+  // to the user's Endaoment Account.
+  // urlParams.append('prompt', 'login consent');
+  // urlParams.append(
+  //   'scope',
+  //   'openid offline_access accounts transactions profile',
+  // );
+
   urlParams.append('client_id', EnvironmentVariables.ENDAOMENT_CLIENT_ID())
   urlParams.append('redirect_uri', EnvironmentVariables.ENDAOMENT_REDIRECT_URI())
   urlParams.append('code_challenge', codeChallenge)
