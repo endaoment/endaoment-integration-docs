@@ -66,3 +66,83 @@
     padding: 0;
   }
 }
+
+.donation-type-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.donation-type-buttons button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.donation-type-buttons button:hover {
+  opacity: 0.9;
+}
+
+.token-search-container,
+.donation-amount-input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.token-search-input {
+  width: 500px;
+}
+
+.donation-amount-input {
+  width: 500px;
+}
+
+.token-dropdown {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #555;
+  border-radius: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #333;
+  color: #f0f0f0;
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+}
+
+.token-dropdown li {
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #444;
+}
+
+.token-dropdown li:last-child {
+  border-bottom: none;
+}
+
+.token-dropdown li:hover {
+  background-color: #454545;
+}
+
+.token-dropdown img {
+  margin-right: 10px;
+}
+
+.token-dropdown-info {
+  font-style: italic;
+  color: #aaa;
+  padding: 10px;
+  text-align: center;
+}

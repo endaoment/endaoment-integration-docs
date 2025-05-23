@@ -7,6 +7,6 @@ export default defineConfig({
   // Prefix for all public environment variables
   envPrefix: 'SAFE_',
   server: {
-    port: 3000,
+    port: 3002,
   },
 });

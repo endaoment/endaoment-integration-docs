@@ -9,6 +9,12 @@ import { getEndaomentUrls } from '../../utils/endaoment-urls';
 import { formatUsdc } from '../../utils/formatUsdc';
 import { DafActivityList } from './DafActivityList';
 import { CollaboratorList } from './CollaboratorList';
+import {
+  DONATION_TYPE_SELECTOR_ID,
+  DonationTypeSelector,
+  DonationType,
+} from './DonationTypeSelector';
+import { CRYPTO_BOX_ID, CryptoBox } from './CryptoBox';
 
 const allDafsQueryOptions = queryOptions({
   queryKey: ['All DAFs'],
@@ -43,15 +49,31 @@ export const AllDafs = () => {
   );
   const [isShowingDonateBox, setIsShowingDonateBox] = useState(false);
   const [isShowingGrantBox, setIsShowingGrantBox] = useState(false);
+  const [isShowingDonationTypeSelector, setIsShowingDonationTypeSelector] =
+    useState(false);
+  const [isShowingCryptoBox, setIsShowingCryptoBox] = useState(false);
 
   const handleDonate = (id: string) => {
-    if (!focusedDaf || focusedDaf.id !== id || !isShowingDonateBox) {
-      setFocusedDaf(id);
+    setFocusedDaf(id);
+    setIsShowingDonationTypeSelector(true);
+    setIsShowingDonateBox(false);
+    setIsShowingCryptoBox(false);
+    setIsShowingGrantBox(false);
+    document.getElementById(DONATION_TYPE_SELECTOR_ID)?.scrollIntoView();
+  };
+
+  const handleSelectDonationType = (type: DonationType) => {
+    setIsShowingDonationTypeSelector(false);
+
+    if (type === 'wire') {
       setIsShowingDonateBox(true);
       document.getElementById(DONATE_BOX_ID)?.scrollIntoView();
+    } else if (type === 'crypto') {
+      setIsShowingCryptoBox(true);
+      document.getElementById(CRYPTO_BOX_ID)?.scrollIntoView();
     }
-    setIsShowingGrantBox(false);
   };
+
   const handleGrant = (id: string) => {
     if (!focusedDaf || focusedDaf.id !== id || !isShowingGrantBox) {
       setFocusedDaf(id);
@@ -59,17 +81,32 @@ export const AllDafs = () => {
       document.getElementById(GRANT_BOX_ID)?.scrollIntoView();
     }
     setIsShowingDonateBox(false);
+    setIsShowingDonationTypeSelector(false);
+    setIsShowingCryptoBox(false);
   };
+
   const handleClose = () => {
     setIsShowingDonateBox(false);
     setIsShowingGrantBox(false);
+    setIsShowingDonationTypeSelector(false);
+    setIsShowingCryptoBox(false);
     setFocusedDaf(undefined);
   };
 
   return (
     <>
+      {isShowingDonationTypeSelector && focusedDaf && (
+        <DonationTypeSelector
+          daf={focusedDaf}
+          onSelectType={handleSelectDonationType}
+          onClose={handleClose}
+        />
+      )}
       {isShowingDonateBox && focusedDaf && (
         <DonateBox daf={focusedDaf} onClose={handleClose} />
+      )}
+      {isShowingCryptoBox && focusedDaf && (
+        <CryptoBox daf={focusedDaf} onClose={handleClose} />
       )}
       {isShowingGrantBox && focusedDaf && (
         <GrantBox daf={focusedDaf} onClose={handleClose} />

@@ -7,7 +7,7 @@ export async function getDafs(req: Request, res: Response) {
 
   try {
     // For more details about the data contract of the API, see the API reference:
-    // https://api.dev.endaoment.org/oas#/Funds/FundsController_getMyFunds
+    // https://docs.endaoment.org/developers/api/funds/get-all-funds-managed-by-the-authenticated-user
     const usersDafListResponse = await fetch(`${getEndaomentUrls().api}/v1/funds/mine`, {
       method: 'GET',
       headers: {

@@ -14,6 +14,9 @@ import { grant } from './routes/grant'
 import { getDafActivity } from './routes/daf-activity'
 import { removeCollaborator } from './routes/remove-collaborator'
 import { getCollaborators } from './routes/get-collaborators'
+import { getTokens } from './routes/get-tokens'
+import { createCryptoPledge } from './routes/create-crypto-pledge'
+
 // Create a new express application instance
 const app = express()
 
@@ -47,6 +50,8 @@ app.get('/get-daf-activity', getDafActivity)
 // Donation routes
 app.get('/wire-donation', getWireInstructions)
 app.post('/wire-donation', wireDonation)
+app.get('/get-tokens', getTokens)
+app.post('/create-crypto-pledge', createCryptoPledge)
 
 // Collaborator routes
 app.get('/get-fund-collaborators', getCollaborators)

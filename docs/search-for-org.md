@@ -1,3 +1,7 @@
+---
+title: 'Search for Organizations'
+---
+
 # Finding Organizations Guide
 
 Welcome to the Finding Organizations Guide. This document will walk you through the process of finding organizations on the Endaoment platform.
@@ -28,7 +32,7 @@ sequenceDiagram
 
 ### 1. Prepare the search interface
 
-In order to allow users to search for organizations, you will need to create a search interface. This can be as simple as a text input field or a more complex search form with filters for the user to select from. Please refer to the [API reference](https://api.dev.endaoment.org/oas#/Organizations/OrgsController_searchOrgs) for the available search parameters.
+In order to allow users to search for organizations, you will need to create a search interface. This can be as simple as a text input field or a more complex search form with filters for the user to select from. Please refer to the [API reference](https://docs.endaoment.org/developers/api/organizations/search-organizations) for the available search parameters.
 
 For this guide, we will create a simple text input field that will allow users to enter a search term. We will be using React for this example, but you can use any frontend framework or library.
 

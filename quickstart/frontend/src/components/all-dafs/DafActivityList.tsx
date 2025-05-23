@@ -10,6 +10,42 @@ const ACTIVITY_TYPE_TO_LABEL: Record<string, string> = {
   pending_grant: 'Pending Grant',
   grant: 'Grant',
   cash_donation_pledge: 'Cash Donation Pledge',
+  crypto_donation_pledge: 'Crypto Donation Pledge',
+};
+
+// Helper function to format crypto amounts with decimal adjustment
+const formatCryptoAmount = (
+  amount: string,
+  decimals: number,
+  symbol: string,
+): string => {
+  const numericAmount = BigInt(amount);
+  const divisor = BigInt(10 ** decimals);
+  const quotient = numericAmount / divisor;
+  const remainder = numericAmount % divisor;
+
+  if (remainder === 0n) {
+    return `${quotient.toString()} ${symbol}`;
+  }
+
+  // For non-zero remainders, show decimal places
+  const decimal = remainder
+    .toString()
+    .padStart(decimals, '0')
+    .replace(/0+$/, '');
+  return `${quotient.toString()}.${decimal} ${symbol}`;
+};
+
+// Helper function to get the formatted amount based on activity type
+const getFormattedAmount = (activity: DafActivity): string => {
+  if (activity.type === 'crypto_donation_pledge') {
+    return formatCryptoAmount(
+      activity.amount,
+      activity.token.decimals,
+      activity.token.symbol,
+    );
+  }
+  return formatUsdc(activity.usdcAmount || '0');
 };
 
 export const DafActivityList = ({ dafId }: { dafId: string }) => {
@@ -18,7 +54,7 @@ export const DafActivityList = ({ dafId }: { dafId: string }) => {
     queryFn: async (): Promise<DafActivity[]> => {
       const response = await fetch(
         `${getEnvOrThrow('SAFE_BACKEND_URL')}/get-daf-activity?fundId=${dafId}`,
-        { credentials: 'include' }
+        { credentials: 'include' },
       );
       const list = await response.json();
 
@@ -45,9 +81,15 @@ export const DafActivityList = ({ dafId }: { dafId: string }) => {
               {dafActivityResponse.data.map((activity) => (
                 <div
                   className="daf-activity-item"
-                  key={activity.occurredAtUtc + activity.usdcAmount}>
+                  key={
+                    activity.occurredAtUtc +
+                    activity.type +
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    ((activity as any).pledgeId || activity.usdcAmount || '')
+                  }
+                >
                   <p>Type: {ACTIVITY_TYPE_TO_LABEL[activity.type]}</p>
-                  <p>Amount: {formatUsdc(activity.usdcAmount)}</p>
+                  <p>Amount: {getFormattedAmount(activity)}</p>
                   <p>At: {formatDate(activity.occurredAtUtc)}</p>
                 </div>
               ))}

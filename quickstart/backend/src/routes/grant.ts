@@ -22,7 +22,7 @@ export async function grant(req: Request, res: Response) {
   const requestedAmount = (BigInt(amount) * 1000000n).toString()
 
   // For more details about the data contract of the API, see the API reference:
-  // https://api.dev.endaoment.org/oas#/Transfers/InternalTransfersController_createAsyncGrant
+  // https://docs.endaoment.org/developers/api/transfers/create-an-async-grant-request
   const grantRequest = await fetch(`${getEndaomentUrls().api}/v1/transfers/async-grants`, {
     method: 'POST',
     headers: {

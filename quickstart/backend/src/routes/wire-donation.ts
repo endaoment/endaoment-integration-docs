@@ -5,8 +5,8 @@ import { getEndaomentUrls } from '../utils/endaoment-urls'
 
 export async function getWireInstructions(req: Request, res: Response) {
   // For more details about the data contract of the API, see the API reference:
-  // https://api.dev.endaoment.org/oas#/Donation%20Pledges/DonationPledgesController_getDomesticPledgeDetails
-  // https://api.dev.endaoment.org/oas#/Donation%20Pledges/DonationPledgesController_getInternationalPledgeDetails
+  // https://docs.endaoment.org/developers/api/donation-pledges/get-domestic-wire-transfer-details
+  // https://docs.endaoment.org/developers/api/donation-pledges/get-international-wire-transfer-details
   const wireInstructionsResponse = await fetch(
     // For domestic wire instructions
     `${getEndaomentUrls().api}/v1/donation-pledges/wire/details/domestic`,

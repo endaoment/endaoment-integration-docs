@@ -7,17 +7,17 @@ const PAGE_COUNT = 10;
 
 const searchOnEndaoment = async (
   searchTerm: string,
-  page: number
+  page: number,
 ): Promise<OrgListing[]> => {
   if (searchTerm === '') return [];
 
   // For more details about the data contract of the API, see the API reference:
-  // https://api.dev.endaoment.org/oas#/Organizations/OrgsController_searchOrgs
+  // https://docs.endaoment.org/developers/api/organizations/search-organizations
   const offset = page * PAGE_COUNT;
   const response = await fetch(
     `${
       getEndaomentUrls().api
-    }/v2/orgs/search?searchTerm=${searchTerm}&count=${PAGE_COUNT}&offset=${offset}`
+    }/v2/orgs/search?searchTerm=${searchTerm}&count=${PAGE_COUNT}&offset=${offset}`,
   );
   return response.json();
 };

@@ -10,6 +10,13 @@ export const getEndaomentUrls = () => {
     }
   }
 
+  if (env === 'local') {
+    return {
+      auth: 'http://localhost:3000',
+      api: 'http://localhost:3333',
+    }
+  }
+
   return {
     auth: 'https://auth.dev.endaoment.org',
     api: 'https://api.dev.endaoment.org',

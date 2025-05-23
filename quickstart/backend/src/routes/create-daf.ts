@@ -18,7 +18,7 @@ export const createDaf = async (req: Request, res: Response) => {
   const token = getAccessToken(req)
 
   // For more details about the data contract of the API, see the API reference:
-  // https://api.dev.endaoment.org/oas#/Funds/FundsController_processFund
+  // https://docs.endaoment.org/developers/api/funds/create-a-new-fund
   const fundCreationResponse = await fetch(`${getEndaomentUrls().api}/v1/funds`, {
     method: 'POST',
     headers: {

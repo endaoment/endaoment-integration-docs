@@ -1,3 +1,7 @@
+---
+title: 'Grant from a DAF'
+---
+
 # Granting out of a Donor-Advised Fund (DAF) Guide
 
 Welcome to the Granting out of a Donor-Advised Fund (DAF) Guide. This document will walk you through the process of granting out of a Donor-Advised Fund (DAF) on the Endaoment platform.
@@ -5,6 +9,7 @@ Welcome to the Granting out of a Donor-Advised Fund (DAF) Guide. This document w
 We will be creating a simple granting flow that will allow users to grant out of a Donor-Advised Fund (DAF) on the Endaoment platform. This guide will cover adding a grant form to your frontend, preparing a grant URL, and processing the grant.
 
 ## What is a Grant?
+
 A grant on the Endaoment platform occurs when a user distributes funds from their Donor-Advised Fund (DAF) to an eligible nonprofit organization. When a user makes a grant:
 
 - The funds are transferred from their DAF balance to the selected organization
@@ -66,7 +71,8 @@ const DafList = () => {
             onClick={
               // Handle the selection of the DAF here
               () => console.log(`Selected DAF: ${daf.name}`)
-            }>
+            }
+          >
             {daf.name}
           </button>
         ))}
@@ -158,6 +164,8 @@ The grant form will allow the user to specify the amount they would like to gran
 
 Similar to the process in [donating to a DAF](./donate-to-daf.md), you will need to send a grant request to the Endaoment API. This can be done by sending a POST request to a `/grant` endpoint on your backend with the necessary information and proxying to Endaoment.
 
+The following code snippet, taken from the [backend/routes/grant.ts file](https://github.com/endaoment/endaoment-integration-docs/blob/main/quickstart/backend/src/routes/grant.ts) in the [quickstart example](https://github.com/endaoment/endaoment-integration-docs/tree/main/quickstart/), demonstrates how to call the API:
+
 ```javascript
 const crypto = require('crypto');
 
@@ -205,7 +213,7 @@ async function grant(req, res) {
         purpose,
         idempotencyKey,
       }),
-    }
+    },
   );
 
   // We can now return the response to the frontend
@@ -249,9 +257,7 @@ When the grant request is successful, the Endaoment API will return the grant in
 }
 ```
 
-For a full list of fields that can be returned in the grant information, refer to the [API Reference](../api-reference.md).
-
-> TODO: Add link to API Reference
+For a full list of fields that can be returned in the grant information, refer to the [Grant API Reference](https://api.dev.endaoment.org/api/transfers/get-all-grants-for-a-fund).
 
 ## Conclusion
 
