@@ -27,7 +27,7 @@ export async function createCryptoPledge(req: Request, res: Response) {
   }
 
   try {
-    // API Reference: https://api.dev.endaoment.org/oas#/Donation%20Pledges/DonationPledgesController_createCryptoPledge
+    // API Reference: https://docs.endaoment.org/developers/api/donation-pledges/create-a-crypto-donation-pledge
     const apiResponse = await fetch(`${getEndaomentUrls().api}/v1/donation-pledges/crypto`, {
       method: 'POST',
       headers: {

@@ -41,7 +41,7 @@ export async function addCollaboratorToFund(fundId: string, token: string, overr
     userId,
   }
 
-  // To see the full API documentation and data contract, visit https://api.dev.endaoment.org/oas#/Funds/FundsController_addFundCollaboratorTrust
+  // To see the full API documentation and data contract, visit https://docs.endaoment.org/developers/api/funds/add-a-trusted-collaborator-to-a-fund
   const addCollaboratorResponse = await fetch(`${getEndaomentUrls().api}/v1/funds/${fundId}/collaborators/trust`, {
     method: 'POST',
     headers: {

@@ -15,7 +15,7 @@ export async function removeCollaboratorFromFund(fundId: string, token: string, 
     throw new Error('No Endaoment ID found for wealth advisor to remove')
   }
 
-  // To see the full API documentation and data contract, visit https://api.dev.endaoment.org/oas#/Funds/FundsController_deleteFundCollaborator
+  // To see the full API documentation and data contract, visit https://docs.endaoment.org/developers/api/funds/remove-a-collaborator-from-a-fund
   const removeCollaboratorResponse = await fetch(
     `${getEndaomentUrls().api}/v1/funds/${fundId}/collaborators/${userId}`,
     {

@@ -4,7 +4,7 @@ import { getEndaomentUrls } from '../utils/endaoment-urls'
 export async function getTokens(req: Request, res: Response) {
   try {
     // For more details about the data contract of the API, see the API reference:
-    // https://api.dev.endaoment.org/oas#/Tokens/TokensController_getSupportedTokensV2
+    // https://docs.endaoment.org/developers/api/tokens/get-tokens-supported-by-endaoment
     const tokensResponse = await fetch(`${getEndaomentUrls().api}/v2/tokens`, {
       method: 'GET',
       headers: {
