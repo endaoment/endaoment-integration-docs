@@ -31,10 +31,6 @@
         min-width: 3rem;
     }
 
-    & a {
-        color: white;
-    }
-
     & img {
         width: 40px;
         min-width: 40px;
