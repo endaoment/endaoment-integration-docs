@@ -139,7 +139,6 @@ export const NewDaf = () => {
             country: rawFormObject['fundAdvisor.address.country'],
           },
         },
-        addMyAdvisorToDaf: rawFormObject['addMyAdvisorToDaf'] === 'on',
       };
 
       const response = await fetch(
@@ -280,17 +279,6 @@ export const NewDaf = () => {
             </option>
           ))}
         </select>
-      </div>
-
-      <div>
-        <label htmlFor="addMyAdvisorToDaf">
-          <input
-            type="checkbox"
-            id="addMyAdvisorToDaf"
-            name="addMyAdvisorToDaf"
-          />
-          Add my Financial Advisor to the DAF
-        </label>
       </div>
 
       {isIdle || isError ? (

@@ -14,5 +14,4 @@ export class EnvironmentVariables {
   static PORT = () => process.env.PORT || 5454
   static ENDAOMENT_ENVIRONMENT = () => getEnvOrThrow('ENDAOMENT_ENVIRONMENT')
   static ENDAOMENT_WEALTH_ADVISOR_ID = (): string | undefined => process.env['ENDAOMENT_WEALTH_ADVISOR_ID']
-  static ENDAOMENT_API_KEY = (): string | undefined => process.env['ENDAOMENT_API_KEY']
 }
