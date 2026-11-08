@@ -249,9 +249,9 @@ If you choose to do so, you can display the details of the newly created DAF to 
 
 The full reference of the fields that are returned in the response can be found in the [API Reference](https://api.dev.endaoment.org/oas#/Funds/FundsController_processFund).
 
-### 4. (Optional) Add Collaborators
+### 4. (Optional) Manage Collaborators
 
-For more details about Collaborators and on how to add and manage them, see the [Manage Collaborators](./manage-collaborators.md) documentation.
+Fund managers add collaborators in the Endaoment app. To list or remove a fund's collaborators from your platform, see [Manage Collaborators](./manage-collaborators.md).
 
 ## Conclusion
 

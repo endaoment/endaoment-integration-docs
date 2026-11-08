@@ -1,13 +1,11 @@
 import type { Request, Response } from 'express'
 import { getAccessToken } from '../utils/access-token'
 import { getEndaomentUrls } from '../utils/endaoment-urls'
-import { addCollaboratorToFund } from '../utils/add-collaborator'
 
 export const createDaf = async (req: Request, res: Response) => {
   const newFundName = req.body['name'] as string
   const newFundDescription = req.body['description'] as string
   const newFundAdvisor = req.body['fundAdvisor'] as string
-  const addMyAdvisorToDaf = req.body['addMyAdvisorToDaf'] as boolean
 
   if (!newFundName || !newFundDescription || !newFundAdvisor) {
     res.status(400)
@@ -45,13 +43,6 @@ export const createDaf = async (req: Request, res: Response) => {
   }
 
   console.log('Fund creation response', response)
-
-  // If the user wants to add their financial advisor to the DAF, we need to add them as a
-  // collaborator at Endaoment
-  if (addMyAdvisorToDaf) {
-    console.log('Adding my advisor to the DAF')
-    await addCollaboratorToFund(response.id, token)
-  }
 
   res.status(200)
   res.json(response)
